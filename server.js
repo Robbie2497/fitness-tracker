@@ -18,6 +18,10 @@ mongoose.connect("mongodb://localhost/workout", {
   useFindAndModify: false
 });
 
+app.get("/", function(req, res) {
+  res.json(path.join(__dirname, "public/index.html"));
+});
+
 // routes
 app.use(require("./routes/api.js"));
 app.use(require("./routes/view.js"));
