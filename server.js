@@ -1,10 +1,12 @@
 const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 
 const PORT = process.env.PORT || 3000;
 
 const app = express();
+dotenv.config();
 
 app.use(logger("dev"));
 
@@ -13,10 +15,9 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://robbie2497:Softwaredev269@ds113680.mlab.com:13680/heroku_fk6f5vx7", {
-  useNewUrlParser: true,
-  useFindAndModify: false
-});
+mongoose.connect(process.env.MONGODB_CONNECTION_STRING, 
+  { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false }
+  );
 // routes
 app.use(require("./routes/api.js"));
 app.use(require("./routes/view.js"));
